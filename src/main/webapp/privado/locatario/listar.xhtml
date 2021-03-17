@@ -72,25 +72,25 @@
                     <div align="center">
                         <p:panelGrid columns="2">
                             <p:outputLabel value="ID"/>
-                            <p:inputText validator="#{controlePessoa.objeto.id}"
+                            <p:inputText validator="#{controleLocatario.objeto.id}"
                                          size="5" readonly="true"/>
 
                             <p:outputLabel value="Nome" for="txtNome"/>
-                            <p:inputText id="txtNome" value="#{controlePessoa.objeto.nome}"
+                            <p:inputText id="txtNome" value="#{controleLocatario.objeto.nome}"
                                          size="50" maxlength="50"
                                          placeholder="Obrigatório"/>
 
                             <p:outputLabel value="Cpf" for="txtCpf"/>
-                            <p:inputText id="txtCpf" value="#{controlePessoa.objeto.cpf}"
+                            <p:inputText id="txtCpf" value="#{controleLocatario.objeto.cpf}"
                                          size="15" maxlength="11"
                                          placeholder="Obrigatório"/>
 
                             <p:outputLabel value="Email" for="txtEmail"/>
-                            <p:inputText id="txtEmail" value="#{controlePessoa.objeto.email}"
+                            <p:inputText id="txtEmail" value="#{controleLocatario.objeto.email}"
                                          size="50" maxlength="50"/>
 
                             <p:outputLabel value="Telefone" for="txtTelefone"/>
-                            <p:inputText id="txtTelefone" value="#{controlePessoa.objeto.telefone}"
+                            <p:inputText id="txtTelefone" value="#{controleLocatario.objeto.telefone}"
                                          size="15" maxlength="12"/>
 
                             <p:outputLabel value="Renda" for="txtRenda"/>
@@ -101,7 +101,7 @@
                             <p:outputLabel value="Local Trabalho" for="txtLocalTrabalho"/>
                             <p:inputText id="txtLocalTrabalho" value="#{controleLocatario.objeto.localTrabalho}"
                                          size="50" maxlength="50"/>
-                            '
+
                             <p:outputLabel value="Telefone Trabalho" for="txtTelefoneTrabalho"/>
                             <p:inputText id="txtTelefoneTrabalho" value="#{controleLocatario.objeto.telefoneTrabalho}"
                                          size="50" maxlength="50"/>

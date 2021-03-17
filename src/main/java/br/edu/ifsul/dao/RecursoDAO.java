@@ -13,10 +13,9 @@ import javax.ejb.Stateful;
  *
  * @author Pichau
  */
-
 @Stateful
-public class RecursoDAO<TIPO> extends DAOGenerico<Recurso> implements Serializable{
-    
+public class RecursoDAO<TIPO> extends DAOGenerico<Recurso> implements Serializable {
+
     public RecursoDAO() {
         super();
         classePersistente = Recurso.class;

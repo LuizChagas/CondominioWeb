@@ -13,10 +13,9 @@ import javax.ejb.Stateful;
  *
  * @author Pichau
  */
-
 @Stateful
-public class LocatarioDAO<TIPO> extends DAOGenerico<Locatario> implements Serializable{
-    
+public class LocatarioDAO<TIPO> extends DAOGenerico<Locatario> implements Serializable {
+
     public LocatarioDAO() {
         super();
         classePersistente = Locatario.class;

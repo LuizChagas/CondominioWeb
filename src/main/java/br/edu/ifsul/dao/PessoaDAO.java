@@ -13,10 +13,9 @@ import javax.ejb.Stateful;
  *
  * @author Pichau
  */
-
 @Stateful
-public class PessoaDAO<TIPO> extends DAOGenerico<Pessoa> implements Serializable{
-    
+public class PessoaDAO<TIPO> extends DAOGenerico<Pessoa> implements Serializable {
+
     public PessoaDAO() {
         super();
         classePersistente = Pessoa.class;
