@@ -10,7 +10,7 @@
     <class>br.edu.ifsul.model.Mensalidade</class>
     <class>br.edu.ifsul.model.Pessoa</class>
     <class>br.edu.ifsul.model.Recurso</class>
-    <class>br.edu.ifsul.model.UnidadeCondicional</class>
+    <class>br.edu.ifsul.model.UnidadeCondominial</class>
     <properties>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

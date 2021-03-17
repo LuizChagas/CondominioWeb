@@ -5,8 +5,8 @@
  */
 package br.edu.ifsul.controle;
 
-import br.edu.ifsul.dao.PessoaDAO;
-import br.edu.ifsul.model.Pessoa;
+import br.edu.ifsul.dao.CondominioDAO;
+import br.edu.ifsul.model.Condominio;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -17,24 +17,24 @@ import javax.inject.Named;
  *
  * @author Pichau
  */
-@Named(value = "controlePessoa")
+@Named(value = "controleCondominio")
 @ViewScoped
-public class ControlePessoa implements Serializable {
+public class ControleCondominio implements Serializable {
 
     @EJB
-    private PessoaDAO<Pessoa> dao;
-    private Pessoa objeto;
+    private CondominioDAO<Condominio> dao;
+    private Condominio objeto;
 
-    public ControlePessoa() {
+    public ControleCondominio() {
 
     }
 
     public String listar() {
-        return "/privado/pessoa/listar?faces-redirect=true";
+        return "/privado/condominio/listar?faces-redirect=true";
     }
 
     public void novo() {
-        objeto = new Pessoa();
+        objeto = new Condominio();
     }
 
     public void alterar(Object id) {
@@ -68,19 +68,19 @@ public class ControlePessoa implements Serializable {
         }
     }
 
-    public PessoaDAO<Pessoa> getDao() {
+    public CondominioDAO<Condominio> getDao() {
         return dao;
     }
 
-    public void setDao(PessoaDAO<Pessoa> dao) {
+    public void setDao(CondominioDAO<Condominio> dao) {
         this.dao = dao;
     }
 
-    public Pessoa getObjeto() {
+    public Condominio getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Pessoa objeto) {
+    public void setObjeto(Condominio objeto) {
         this.objeto = objeto;
     }
 

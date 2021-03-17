@@ -5,19 +5,19 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="/templates/template.xhtml">
-        <ui:define name="titulo">Manutenção de Pessoas</ui:define>
+        <ui:define name="titulo">Manutenção de Condominios</ui:define>
         <ui:define name="conteudo">
             <h:form id="formListagem" prependId="false">
                 <p:growl/>
 
                 <p:commandButton value="Novo"
-                                 actionListener="#{controlePessoa.novo()}"
+                                 actionListener="#{controleCondominio.novo()}"
                                  icon="pi pi-plus"
                                  update="formEdicao"
                                  process="@this"
                                  oncomplete="PF('dlg').show();"/>
 
-                <p:dataTable value="#{controlePessoa.dao.listaObjetos}" var="obj"
+                <p:dataTable value="#{controleCondominio.dao.listaObjetos}" var="obj"
                              id="listagem">
 
                     <p:column headerText="ID">
@@ -27,25 +27,25 @@
                     <p:column headerText="Nome">
                         <p:outputLabel value="#{obj.nome}"/>
                     </p:column>     
-                    <p:column headerText="Cpf">
-                        <p:outputLabel value="#{obj.cpf}"/>
+                    <p:column headerText="Cep">
+                        <p:outputLabel value="#{obj.cep}"/>
                     </p:column> 
-                    <p:column headerText="Email">
-                        <p:outputLabel value="#{obj.email}"/>
+                    <p:column headerText="Endereco">
+                        <p:outputLabel value="#{obj.endereco}"/>
                     </p:column>
-                    <p:column headerText="Telefone">
-                        <p:outputLabel value="#{obj.telefone}"/>
+                    <p:column headerText="Numero">
+                        <p:outputLabel value="#{obj.numero}"/>
                     </p:column>
                     <p:column headerText="Ações">
                         <div align="center">
-                            <p:commandButton actionListener="#{controlePessoa.alterar(obj.id)}"
+                            <p:commandButton actionListener="#{controleCondominio.alterar(obj.id)}"
                                              icon="pi pi-pencil"
                                              title="Editar"
                                              update="formEdicao"
                                              process="@this"
                                              oncomplete="PF('dlg').show();"/>
-
-                            <p:commandButton actionListener="#{controlePessoa.excluir(obj.id)}"
+                            
+                            <p:commandButton actionListener="#{controleCondominio.excluir(obj.id)}"
                                              icon="pi pi-trash"
                                              update="@form"
                                              process="@this"
@@ -64,33 +64,35 @@
                     <div align="center">
                         <p:panelGrid columns="2">
                             <p:outputLabel value="ID"/>
-                            <p:inputText validator="#{controlePessoa.objeto.id}"
+                            <p:inputText validator="#{controleCondominio.objeto.id}"
                                          size="5" readonly="true"/>
 
                             <p:outputLabel value="Nome" for="txtNome"/>
-                            <p:inputText id="txtNome" value="#{controlePessoa.objeto.nome}"
+                            <p:inputText id="txtNome" value="#{controleCondominio.objeto.nome}"
                                          size="50" maxlength="50"
                                          placeholder="Obrigatório"/>
 
-                            <p:outputLabel value="Cpf" for="txtCpf"/>
-                            <p:inputText id="txtCpf" value="#{controlePessoa.objeto.cpf}"
-                                         size="15" maxlength="11"
+                            <p:outputLabel value="Cep" for="txtCep"/>
+                            <p:inputText id="txtCep" value="#{controleCondominio.objeto.cep}"
+                                         size="50" maxlength="50"
                                          placeholder="Obrigatório"/>
 
-                            <p:outputLabel value="Email" for="txtEmail"/>
-                            <p:inputText id="txtEmail" value="#{controlePessoa.objeto.email}"
-                                         size="50" maxlength="50"/>
+                            <p:outputLabel value="Endereco" for="txtEndereco"/>
+                            <p:inputText id="txtEndereco" value="#{controleCondominio.objeto.endereco}"
+                                         size="50" maxlength="50"
+                                         placeholder="Obrigatório"/>
 
-                            <p:outputLabel value="Telefone" for="txtTelefone"/>
-                            <p:inputText id="txtTelefone" value="#{controlePessoa.objeto.telefone}"
-                                         size="15" maxlength="12"/>
+                            <p:outputLabel value="Numero" for="txtNumero"/>
+                            <p:inputText id="txtNumero" value="#{controleCondominio.objeto.numero}"
+                                         size="50" maxlength="50"
+                                         placeholder="Obrigatório"/>
                         </p:panelGrid>
                     </div>
                     <p:panel>
                         <div align="center">
                             <p:commandButton value="Salvar"
                                              icon="pi pi-save"
-                                             actionListener="#{controlePessoa.salvar()}"
+                                             actionListener="#{controleCondominio.salvar()}"
                                              update="formEdicao formListagem"
                                              oncomplete="if (!args.validationFailed){PF('dlg').hide();}"/>
                         </div>

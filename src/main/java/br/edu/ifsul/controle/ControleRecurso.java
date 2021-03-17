@@ -5,8 +5,8 @@
  */
 package br.edu.ifsul.controle;
 
-import br.edu.ifsul.dao.PessoaDAO;
-import br.edu.ifsul.model.Pessoa;
+import br.edu.ifsul.dao.RecursoDAO;
+import br.edu.ifsul.model.Recurso;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -17,24 +17,24 @@ import javax.inject.Named;
  *
  * @author Pichau
  */
-@Named(value = "controlePessoa")
+@Named(value = "controleRecurso")
 @ViewScoped
-public class ControlePessoa implements Serializable {
+public class ControleRecurso implements Serializable {
 
     @EJB
-    private PessoaDAO<Pessoa> dao;
-    private Pessoa objeto;
+    private RecursoDAO<Recurso> dao;
+    private Recurso objeto;
 
-    public ControlePessoa() {
+    public ControleRecurso() {
 
     }
 
     public String listar() {
-        return "/privado/pessoa/listar?faces-redirect=true";
+        return "/privado/recurso/listar?faces-redirect=true";
     }
 
     public void novo() {
-        objeto = new Pessoa();
+        objeto = new Recurso();
     }
 
     public void alterar(Object id) {
@@ -68,19 +68,19 @@ public class ControlePessoa implements Serializable {
         }
     }
 
-    public PessoaDAO<Pessoa> getDao() {
+    public RecursoDAO<Recurso> getDao() {
         return dao;
     }
 
-    public void setDao(PessoaDAO<Pessoa> dao) {
+    public void setDao(RecursoDAO<Recurso> dao) {
         this.dao = dao;
     }
 
-    public Pessoa getObjeto() {
+    public Recurso getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Pessoa objeto) {
+    public void setObjeto(Recurso objeto) {
         this.objeto = objeto;
     }
 
