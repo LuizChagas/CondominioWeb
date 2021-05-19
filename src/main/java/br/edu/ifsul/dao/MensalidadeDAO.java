@@ -6,7 +6,7 @@
 package br.edu.ifsul.dao;
 
 import br.edu.ifsul.conversores.ConverterOrdem;
-import br.edu.ifsul.model.Recurso;
+import br.edu.ifsul.model.Mensalidade;
 import java.io.Serializable;
 import javax.ejb.Stateful;
 
@@ -15,11 +15,11 @@ import javax.ejb.Stateful;
  * @author Pichau
  */
 @Stateful
-public class RecursoDAO<TIPO> extends DAOGenerico<Recurso> implements Serializable {
+public class MensalidadeDAO<TIPO> extends DAOGenerico<Mensalidade> implements Serializable {
 
-    public RecursoDAO() {
+    public MensalidadeDAO() {
         super();
-        classePersistente = Recurso.class;
+        classePersistente = Mensalidade.class;
 
         // definir as ordens possíveis
         listaOrdem.add(new Ordem("id", "ID", "="));

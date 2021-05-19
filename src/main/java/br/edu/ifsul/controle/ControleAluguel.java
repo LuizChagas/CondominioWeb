@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifsul.controle;
 
-import br.edu.ifsul.dao.CondominioDAO;
+import br.edu.ifsul.dao.AluguelDAO;
 import br.edu.ifsul.dao.PessoaDAO;
 import br.edu.ifsul.dao.UnidadeCondominialDAO;
+import br.edu.ifsul.model.Aluguel;
 import br.edu.ifsul.model.Pessoa;
-import br.edu.ifsul.model.Condominio;
 import br.edu.ifsul.model.UnidadeCondominial;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
@@ -17,17 +12,13 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-/**
- *
- * @author Pichau
- */
-@Named(value = "controleCondominio")
+@Named(value = "controleAluguel")
 @ViewScoped
-public class ControleCondominio implements Serializable {
+public class ControleAluguel implements Serializable {
 
     @EJB
-    private CondominioDAO<Condominio> dao;
-    private Condominio objeto;
+    private AluguelDAO<Aluguel> dao;
+    private Aluguel objeto;
 
     @EJB
     private PessoaDAO<Pessoa> daoPessoa;
@@ -35,47 +26,16 @@ public class ControleCondominio implements Serializable {
     @EJB
     private UnidadeCondominialDAO<UnidadeCondominial> daoUnidadeCondominial;
 
-    private UnidadeCondominial uc;
-    private Boolean novoUnidadeCondominial;
-
-    public void novoUnidadeCondominial() {
-        uc = new UnidadeCondominial();
-
-        if (uc != null) {
-            Pessoa p = new Pessoa();
-            p.setId(1);
-            uc.setPessoa(p);
-            novoUnidadeCondominial = true;
-        }
-    }
-
-    public void alterarUnidadeCondominial(int index) {
-        uc = objeto.getUnidadesCondominiais().get(index);
-        novoUnidadeCondominial = false;
-    }
-
-    public void salvarUnidadeCondominial() {
-        if (novoUnidadeCondominial) {
-            objeto.adicionarUnidadeCondominial(uc);
-        }
-        Util.mensagemInformacao("Unidade Condominial adicionado ou alterado com sucesso!");
-    }
-
-    public void removerUnidadeCondominial(int index) {
-        objeto.removerUnidadeCondominial(index);
-        Util.mensagemInformacao("Unidade Condominial removido com sucesso!");
-    }
-
-    public ControleCondominio() {
+    public ControleAluguel() {
 
     }
 
     public String listar() {
-        return "/privado/condominio/listar?faces-redirect=true";
+        return "/privado/aluguel/listar?faces-redirect=true";
     }
 
     public void novo() {
-        objeto = new Condominio();
+        objeto = new Aluguel();
     }
 
     public void alterar(Object id) {
@@ -97,6 +57,9 @@ public class ControleCondominio implements Serializable {
     }
 
     public void salvar() {
+        // if (objeto.getUnidadeCondominial().getNumero())
+        // System.out.println();
+        
         try {
             if (objeto.getId() == null) {
                 dao.persist(objeto);
@@ -109,19 +72,19 @@ public class ControleCondominio implements Serializable {
         }
     }
 
-    public CondominioDAO<Condominio> getDao() {
+    public AluguelDAO<Aluguel> getDao() {
         return dao;
     }
 
-    public void setDao(CondominioDAO<Condominio> dao) {
+    public void setDao(AluguelDAO<Aluguel> dao) {
         this.dao = dao;
     }
 
-    public Condominio getObjeto() {
+    public Aluguel getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Condominio objeto) {
+    public void setObjeto(Aluguel objeto) {
         this.objeto = objeto;
     }
 
@@ -140,21 +103,4 @@ public class ControleCondominio implements Serializable {
     public void setDaoUnidadeCondominial(UnidadeCondominialDAO<UnidadeCondominial> daoUnidadeCondominial) {
         this.daoUnidadeCondominial = daoUnidadeCondominial;
     }
-
-    public UnidadeCondominial getUc() {
-        return uc;
-    }
-
-    public void setUc(UnidadeCondominial uc) {
-        this.uc = uc;
-    }
-
-    public Boolean getNovoUnidadeCondominial() {
-        return novoUnidadeCondominial;
-    }
-
-    public void setNovoUnidadeCondominial(Boolean novoUnidadeCondominial) {
-        this.novoUnidadeCondominial = novoUnidadeCondominial;
-    }
-
 }

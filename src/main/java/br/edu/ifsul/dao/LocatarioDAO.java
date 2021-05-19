@@ -5,6 +5,7 @@
  */
 package br.edu.ifsul.dao;
 
+import br.edu.ifsul.conversores.ConverterOrdem;
 import br.edu.ifsul.model.Locatario;
 import java.io.Serializable;
 import javax.ejb.Stateful;
@@ -19,5 +20,13 @@ public class LocatarioDAO<TIPO> extends DAOGenerico<Locatario> implements Serial
     public LocatarioDAO() {
         super();
         classePersistente = Locatario.class;
+
+        // definir as ordens possíveis
+        listaOrdem.add(new Ordem("id", "ID", "="));
+        // difinir a ordem inicial
+        ordemAtual = listaOrdem.get(0);
+        // inicializar o conversor das ordens
+        converterOrdem = new ConverterOrdem();
+        converterOrdem.setListaOrdem(listaOrdem);
     }
 }

@@ -6,7 +6,7 @@
 package br.edu.ifsul.dao;
 
 import br.edu.ifsul.conversores.ConverterOrdem;
-import br.edu.ifsul.model.Recurso;
+import br.edu.ifsul.model.Aluguel;
 import java.io.Serializable;
 import javax.ejb.Stateful;
 
@@ -15,11 +15,11 @@ import javax.ejb.Stateful;
  * @author Pichau
  */
 @Stateful
-public class RecursoDAO<TIPO> extends DAOGenerico<Recurso> implements Serializable {
+public class AluguelDAO<TIPO> extends DAOGenerico<Aluguel> implements Serializable {
 
-    public RecursoDAO() {
+    public AluguelDAO() {
         super();
-        classePersistente = Recurso.class;
+        classePersistente = Aluguel.class;
 
         // definir as ordens possíveis
         listaOrdem.add(new Ordem("id", "ID", "="));
@@ -29,4 +29,11 @@ public class RecursoDAO<TIPO> extends DAOGenerico<Recurso> implements Serializab
         converterOrdem = new ConverterOrdem();
         converterOrdem.setListaOrdem(listaOrdem);
     }
+
+    public Aluguel getObjectById(Object id) throws Exception {
+        Aluguel obj = em.find(Aluguel.class, id);
+        obj.getMensalidades().size();
+        return (Aluguel) em.find(classePersistente, id);
+    }
+
 }

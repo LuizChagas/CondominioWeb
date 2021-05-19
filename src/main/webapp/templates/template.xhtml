@@ -18,21 +18,29 @@
                             icon="pi pi-home"/>
                 <p:submenu label="Cadastros">
                     <p:column>
-                        <p:submenu label="Básicos">
+                        <p:submenu label="Etapa 1">
                             <p:menuitem action="#{controlePessoa.listar()}"
                                         value="Manutenção de Pessoas"
                                         ajax="false"/>
-                            
+
                             <p:menuitem action="#{controleLocatario.listar()}"
                                         value="Manutenção de Locatários"
                                         ajax="false"/>
-                            
+
+                            <p:menuitem action="#{controleRecurso.listar()}"
+                                        value="Manutenção de Recursos"
+                                        ajax="false"/>
+                        </p:submenu>
+                    </p:column>
+
+                    <p:column>
+                        <p:submenu label="Etapa 2">
                             <p:menuitem action="#{controleCondominio.listar()}"
                                         value="Manutenção de Condomínios"
                                         ajax="false"/>
-                            
-                            <p:menuitem action="#{controleRecurso.listar()}"
-                                        value="Manutenção de Recursos"
+
+                            <p:menuitem action="#{controleAluguel.listar()}"
+                                        value="Manutenção de Alugueis"
                                         ajax="false"/>
                         </p:submenu>
                     </p:column>
