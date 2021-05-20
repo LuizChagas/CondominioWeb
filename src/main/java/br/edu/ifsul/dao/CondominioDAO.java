@@ -34,6 +34,7 @@ public class CondominioDAO<TIPO> extends DAOGenerico<Condominio> implements Seri
     public Condominio getObjectById(Object id) throws Exception {
         Condominio obj = em.find(Condominio.class, id);
         obj.getUnidadesCondominiais().size();
+        obj.getRecursos().size();
         return (Condominio) em.find(classePersistente, id);
     }
 }

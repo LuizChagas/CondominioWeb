@@ -1,26 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifsul.controle;
 
 import br.edu.ifsul.dao.CondominioDAO;
 import br.edu.ifsul.dao.PessoaDAO;
+import br.edu.ifsul.dao.RecursoDAO;
 import br.edu.ifsul.dao.UnidadeCondominialDAO;
 import br.edu.ifsul.model.Pessoa;
 import br.edu.ifsul.model.Condominio;
+import br.edu.ifsul.model.Recurso;
 import br.edu.ifsul.model.UnidadeCondominial;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-/**
- *
- * @author Pichau
- */
 @Named(value = "controleCondominio")
 @ViewScoped
 public class ControleCondominio implements Serializable {
@@ -35,16 +32,52 @@ public class ControleCondominio implements Serializable {
     @EJB
     private UnidadeCondominialDAO<UnidadeCondominial> daoUnidadeCondominial;
 
+    @EJB
+    private RecursoDAO<Recurso> daoRecurso;
+    private Recurso recurso;
+
     private UnidadeCondominial uc;
     private Boolean novoUnidadeCondominial;
+
+    public void removerRecurso(Recurso obj) {
+        objeto.getRecursos().remove(obj);
+        Util.mensagemInformacao("Recurso removido com sucesso!");
+    }
+
+    public void adicionarRecurso() {
+        try {
+            if (!objeto.getRecursos().contains(recurso)) {
+                objeto.getRecursos().add(recurso);
+                Util.mensagemInformacao("Recurso adicionado com sucesso!");
+            } else {
+                Util.mensagemErro("Usuário já possui este recurso!");
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void imprimeCondominios() {
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("RelatorioCondominios", parametros, dao.getListaTodos());
+    }
+
+    public void imprimeCondominio(Object id) {
+        try {
+            List<Condominio> lista = new ArrayList();
+            lista.add(dao.getObjectById(id));
+
+            HashMap parametros = new HashMap();
+            UtilRelatorios.imprimeRelatorio("RelatorioCondominios", parametros, lista);
+        } catch (Exception e) {
+            Util.mensagemInformacao("Erro ao recuperar objeto: " + Util.getMensagemErro(e));
+        }
+    }
 
     public void novoUnidadeCondominial() {
         uc = new UnidadeCondominial();
 
         if (uc != null) {
-            Pessoa p = new Pessoa();
-            p.setId(1);
-            uc.setPessoa(p);
             novoUnidadeCondominial = true;
         }
     }
@@ -155,6 +188,22 @@ public class ControleCondominio implements Serializable {
 
     public void setNovoUnidadeCondominial(Boolean novoUnidadeCondominial) {
         this.novoUnidadeCondominial = novoUnidadeCondominial;
+    }
+
+    public Recurso getRecurso() {
+        return recurso;
+    }
+
+    public void setRecurso(Recurso recurso) {
+        this.recurso = recurso;
+    }
+
+    public RecursoDAO<Recurso> getDaoRecurso() {
+        return daoRecurso;
+    }
+
+    public void setDaoRecurso(RecursoDAO<Recurso> daoRecurso) {
+        this.daoRecurso = daoRecurso;
     }
 
 }

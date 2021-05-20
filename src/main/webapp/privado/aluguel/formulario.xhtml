@@ -49,8 +49,8 @@
                                 <f:selectItem noSelectionOption="true"
                                               itemLabel="Selecione um registro"/>
 
-                                <f:converter binding="#{converterPessoa}"/>
-                                <f:selectItems value="#{controleAluguel.daoPessoa.listaTodos}"
+                                <f:converter binding="#{converterLocatario}"/>
+                                <f:selectItems value="#{controleAluguel.daoLocatario.listaTodos}"
                                                var="pes" itemLabel="#{pes.nome}"/>
                             </p:selectOneMenu>
 
@@ -71,65 +71,73 @@
                     </div>                    
                 </p:tab>
 
-                <!--
-                <p:tab title="História">
-                    <p:textEditor value="#{controleTime.objeto.historia}"
-                                  secure="false" height="200"/>
-                </p:tab>   
-                <p:tab title="Jogadores">
-                    <p:dataTable value="#{controleTime.objeto.jogadores}"
-                                 var="jogador" rowIndexVar="idxJogador"
-                                 id="listaJogadores">
+                <p:tab title="Mensalidades">
+                    <p:dataTable value="#{controleAluguel.objeto.mensalidades}"
+                                 var="men" rowIndexVar="idxMensalidade"
+                                 id="listaMensalidades">
+
                         <f:facet name="header">
-                            <p:commandButton value="Novo Jogador"
-                                             actionListener="#{controleTime.novoJogador()}"
-                                             update=":formJogador"
+                            <p:commandButton value="Nova Mensalidade"
+                                             actionListener="#{controleAluguel.novoMensalidade()}"
+                                             update=":formMensalidade"
                                              icon="pi pi-plus"
                                              process="@this"
-                                             oncomplete="PF('dlgJogador').show();"/>
+                                             oncomplete="PF('dlgMensalidade').show();"/>
                         </f:facet>
+
                         <p:column headerText="ID">
-                            <p:outputLabel value="#{jogador.id}"/>
+                            <p:outputLabel value="#{men.id}"/>
                         </p:column>
-                        <p:column headerText="Nome">
-                            <p:outputLabel value="#{jogador.nome}"/>
+
+                        <p:column headerText="Valor">
+                            <p:outputLabel value="#{men.valor}"/>
                         </p:column>    
-                        <p:column headerText="Nascimento">
-                            <p:outputLabel value="#{jogador.nascimento}">
+
+                        <p:column headerText="Data Vencimento">
+                            <p:outputLabel value="#{men.dataVencimento}">
                                 <f:converter converterId="converterCalendar"/>
                             </p:outputLabel>
                         </p:column>  
-                        <p:column headerText="Posição">
-                            <p:outputLabel value="#{jogador.posicao.nome}"/>
+
+                        <p:column headerText="Data Pagamento">
+                            <p:outputLabel value="#{men.dataPagamento}">
+                                <f:converter converterId="converterCalendar"/>
+                            </p:outputLabel>
                         </p:column>  
+
+                        <p:column headerText="Valor Pagamento">
+                            <p:outputLabel value="#{men.valorPagamento}"/>
+                        </p:column>
+
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton 
-                                    actionListener="#{controleTime.alterarJogador(idxJogador)}"
-                                                 icon="pi pi-pencil"
-                                                 title="Editar"
-                                                 update=":formJogador"
-                                                 process="@this"
-                                                 oncomplete="PF('dlgJogador').show();"/>
+                                    actionListener="#{controleAluguel.alterarMensalidade(idxMensalidade)}"
+                                    icon="pi pi-pencil"
+                                    title="Editar"
+                                    update=":formMensalidade"
+                                    process="@this"
+                                    oncomplete="PF('dlgMensalidade').show();"/>
+
                                 <p:commandButton 
-                                    actionListener="#{controleTime.removerJogador(idxJogador)}"
-                                                 icon="pi pi-trash"
-                                                 update="tab:listaJogadores growl"
-                                                 process="@this"
-                                                 onclick="if (!confirm('Confirma a exclusão'))
-                                                         return false"/>
+                                    actionListener="#{controleAluguel.removerMensalidade(idxMensalidade)}"
+                                    icon="pi pi-trash"
+                                    update="tab:listaMensalidades growl"
+                                    process="@this"
+                                    onclick="if (!confirm('Confirma a exclusão'))
+                                                return false"/>
                             </div>
                         </p:column>                        
                     </p:dataTable>
                 </p:tab>
-                -->
+
             </p:tabView>
 
             <p:panel>
                 <div align="center">
                     <p:commandButton value="Salvar"
                                      icon="pi pi-save"
-                                     actionListener="#{controleTime.salvar()}"
+                                     actionListener="#{controleAluguel.salvar()}"
                                      update="formEdicao formListagem"
                                      oncomplete="if (!args.validationFailed){PF('dlg').hide();}"/>
                 </div>
@@ -137,55 +145,50 @@
         </h:form>
     </p:dialog>
 
-    <!--
-    <p:dialog header="Edição de Jogador" widgetVar="dlgJogador" resizable="false"
-        modal="true">
-        <h:form id="formJogador">
+    <p:dialog header="Edição de Mensalidade" widgetVar="dlgMensalidade" resizable="false" modal="true">
+
+        <h:form id="formMensalidade">
             <p:growl/>
+
             <p:panelGrid columns="2">
                 <f:facet name="footer">
                     <div align="center">
                         <p:commandButton value="Salvar" icon="pi pi-save"
-                                         actionListener="#{controleTime.salvarJogador()}"
-                                         update="tab:listaJogadores growl @form"
+                                         actionListener="#{controleAluguel.salvarMensalidade()}"
+                                         update="tab:listaMensalidades growl @form"
                                          process="@form"
-                    oncomplete="if(!args.validationFailed){PF('dlgJogador').hide();}"/>                                         
+                                         oncomplete="if(!args.validationFailed){PF('dlgMensalidade').hide();}"/>                                         
                     </div>
                 </f:facet>
+
                 <p:outputLabel value="ID"/>
-                <p:inputText value="#{controleTime.jogador.id}" readonly="true"/>
-                <p:outputLabel value="Nome" for="txtNomeJogador"/>
-                <p:inputText id="txtNomeJogador" value="#{controleTime.jogador.nome}"
-                             placeholder="Obrigatório"
-                             size="50" maxlength="50"/>
-                <p:outputLabel value="CPF" for="txtCPF"/>
-                <p:inputMask id="txtCPF" value="#{controleTime.jogador.cpf}"
-                             placeholder="Obrigatório"
-                             size="14" maxlength="14" mask="999.999.999-99"/>
-                <p:outputLabel value="Nascimento" for="txtNascimento"/>
-                <p:calendar id="txtNascimento" value="#{controleTime.jogador.nascimento}"
+                <p:inputText value="#{controleAluguel.mensalidade.id}" readonly="true"/>
+
+                <p:outputLabel value="Valor" for="txtValor"/>
+                <p:inputNumber id="txtValor" value="#{controleAluguel.mensalidade.valor}"
+                               thousandSeparator="" decimalSeparator="." decimalPlaces="2"
+                               size="10" placeholder="Obrigatório"/>
+
+                <p:outputLabel value="Data Vencimento" for="txtDataVencimento"/>
+                <p:calendar id="txtDataVencimento" value="#{controleAluguel.mensalidade.dataVencimento}"
                             mask="true" pattern="dd/MM/yyyy" navigator="true" size="10">
                     <f:converter converterId="converterCalendar"/>
                 </p:calendar>
-                <p:outputLabel value="Peso" for="txtPeso"/>
-                <p:inputNumber id="txtPeso" value="#{controleTime.jogador.peso}"
+
+                <p:outputLabel value="Data Pagamento" for="txtDataPagamento"/>
+                <p:calendar id="txtDataPagamento" value="#{controleAluguel.mensalidade.dataPagamento}"
+                            mask="true" pattern="dd/MM/yyyy" navigator="true" size="10">
+                    <f:converter converterId="converterCalendar"/>
+                </p:calendar>
+
+                <p:outputLabel value="Valor Pagamento" for="txtValorPagamento"/>
+                <p:inputNumber id="txtValorPagamento" value="#{controleAluguel.mensalidade.valorPagamento}"
                                thousandSeparator="" decimalSeparator="." decimalPlaces="2"
-                               size="10"/>
-                <p:outputLabel value="Altura" for="txtAltura"/>
-                <p:inputNumber id="txtAltura" value="#{controleTime.jogador.altura}"
-                               thousandSeparator="" decimalSeparator="." decimalPlaces="2"
-                               size="10"/>     
-                <p:outputLabel value="Posição" for="selectPosicao"/>
-                <p:selectOneMenu id="selectPosicao" value="#{controleTime.jogador.posicao}">
-                    <f:converter binding="#{converterPosicao}"/>
-                    <f:selectItem itemLabel="Selecione um registro" noSelectionOption="true"/>
-                    <f:selectItems value="#{controleTime.daoPosicao.listaTodos}"
-                                   var="p" itemLabel="#{p.nome}"/>                    
-                </p:selectOneMenu>
+                               size="10" placeholder="Obrigatório"/>
             </p:panelGrid>
+
         </h:form>
         <ui:include src="/templates/ajaxstatus.xhtml"/>
     </p:dialog>
-    -->
 </html>
 
